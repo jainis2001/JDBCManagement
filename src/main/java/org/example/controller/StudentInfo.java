@@ -15,6 +15,7 @@ public class StudentInfo {
 	Long mobile;
 	int age;
 	StudentDTO studentDTO=null;
+	Address address=null;
 
 	public StudentInfo(StudentService studentService) {
 		this.studentService = studentService;
@@ -53,7 +54,7 @@ public class StudentInfo {
 
 
 	public Address getAddressInput(){
-		Address address=null;
+
 		try{
 			Util util=new Util();
 			String addressId=util.createId();
@@ -108,12 +109,19 @@ public class StudentInfo {
 
 				studentDTO=getInput();
 				studentDTO.setStudentId(studentId);
-				if(studentService.updateStudent(studentDTO)){
-					System.out.println("Updated..");
-					showStudent(studentDTO);
-				}else{
-					System.out.println("Could not updated");
+				studentId=studentService.isStudentExist(studentDTO);
+				if(studentId==null){
+					if(studentService.updateStudent(studentDTO)){
+						System.out.println("Updated..");
+						showStudent(studentDTO);
+					}else{
+						System.out.println("Could not updated");
+					}
 				}
+				else{
+					System.out.println("This Student already there!");
+				}
+
 		}catch (Exception e){
 			System.out.println(e.getMessage());
 			selectEditInput(studentDTO);
