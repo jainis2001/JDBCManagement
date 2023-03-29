@@ -34,6 +34,26 @@ public class StudentDaoImpl implements StudentDao{
 		return studentId;
 	}
 
+	@Override
+	public String isStuentExistForEdit(Student student) {
+		String studentId=null;
+		try(Connection con= DBConnection.getConnection())
+		{
+			PreparedStatement pstmt=con.prepareStatement("select studentid from tempstudent where email=? and firstname=? and lastname=? and studentid<>?");
+			pstmt.setString(1, student.getEmail());
+			pstmt.setString(2, student.getFirstName());
+			pstmt.setString(3, student.getLastName());
+			pstmt.setString(4, student.getStudentId());
+			ResultSet result=pstmt.executeQuery();
+			if(result.next()){
+				studentId=result.getString(1);
+			}
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+		}
+		return studentId;
+	}
+
 
 	@Override
 	public boolean insert(Student student) {

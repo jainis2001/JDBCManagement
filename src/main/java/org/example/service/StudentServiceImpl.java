@@ -62,6 +62,19 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
+	public String isStudentExistForEdit(StudentDTO studentDTO) {
+		String studentId=null;
+		try{
+			student=new Student(studentDTO.getStudentId(),studentDTO.getFirstName(), studentDTO.getLastName(), studentDTO.getEmail());
+			studentId=studentDao.isStuentExistForEdit(student);
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+			System.out.println("Error while inserting student");
+		}
+		return studentId;
+	}
+
+	@Override
 	public boolean deleteStudent(String studentId) {
 		 boolean isDeleted=false;
 		try{

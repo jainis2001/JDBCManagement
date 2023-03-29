@@ -109,7 +109,7 @@ public class StudentInfo {
 
 				studentDTO=getInput();
 				studentDTO.setStudentId(studentId);
-				studentId=studentService.isStudentExist(studentDTO);
+				studentId=studentService.isStudentExistForEdit(studentDTO);
 				if(studentId==null){
 					if(studentService.updateStudent(studentDTO)){
 						System.out.println("Updated..");

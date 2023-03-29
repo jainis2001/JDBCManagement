@@ -12,6 +12,12 @@ public class Student {
 		this.lastName = lastName;
 		this.email = email;
 	}
+	public Student(String studentId,String firstName, String lastName, String email) {
+		this.studentId=studentId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
 
 	public Student(String studentId, int age, long mobile, String firstName, String lastName, String email, String gender, String addressId) {
 		this.studentId = studentId;
