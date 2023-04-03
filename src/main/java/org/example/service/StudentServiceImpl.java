@@ -7,6 +7,8 @@ import org.example.repo.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class StudentServiceImpl implements StudentService{
@@ -27,7 +29,6 @@ public class StudentServiceImpl implements StudentService{
 	public StudentDTO getRecordById(String studentId) {
 		StudentDTO studentDTO=null;
 		try{
-//			studentDTO=studentDao.getById(studentId);
 			Student student=studentDao.getByStudentId(studentId);
 			if(student!=null){
 				Address address=addressDao.getByAddressId(student.getAddressId());
@@ -49,11 +50,18 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public String isStudentExist(StudentDTO studentDTO) {
+	public String isStudentExist(StudentDTO studentDTO,boolean isForUpdate) {
 		String studentId=null;
 		try{
+
 			student=new Student(studentDTO.getFirstName(), studentDTO.getLastName(), studentDTO.getEmail());
-			studentId=studentDao.isStuentExist(student);
+			if(isForUpdate){
+				studentId=studentDao.isStuentExist(student,true);
+
+			}else{
+				studentId=studentDao.isStuentExist(student,false);
+
+			}
 		}catch (Exception e){
 		System.out.println(e.getMessage());
 			System.out.println("Error while inserting student");
@@ -61,30 +69,17 @@ public class StudentServiceImpl implements StudentService{
 		return studentId;
 	}
 
-	@Override
-	public String isStudentExistForEdit(StudentDTO studentDTO) {
-		String studentId=null;
-		try{
-			student=new Student(studentDTO.getStudentId(),studentDTO.getFirstName(), studentDTO.getLastName(), studentDTO.getEmail());
-			studentId=studentDao.isStuentExistForEdit(student);
-		}catch (Exception e){
-			System.out.println(e.getMessage());
-			System.out.println("Error while inserting student");
-		}
-		return studentId;
-	}
+
 
 	@Override
 	public boolean deleteStudent(String studentId) {
 		 boolean isDeleted=false;
 		try{
-//			StudentDTO studentDTO=studentDao.getById(studentId);
 			Student student=studentDao.getByStudentId(studentId);
 			if(student!=null){
 				if(studentDao.delete(student.getStudentId())){
 					isDeleted=true;
 				}
-
 			}
 
 		}catch (Exception e){
@@ -99,29 +94,24 @@ public class StudentServiceImpl implements StudentService{
 	public List<StudentDTO> viewStudents() {
 		List<StudentDTO> studentsList=new ArrayList<>();
 		try{
-//			studentsList= studentDao.showRecords();
 			List<Student> studentsRecord=studentDao.getAllStudentsRecords();
 			List<Address> addressRecord=addressDao.getAllAddressRecords();
-
-			for(Student student:studentsRecord){
-				StudentDTO studentDTO=new StudentDTO(student.getStudentId(), student.getAge(), student.getMobile(), student.getFirstName(), student.getLastName(), student.getEmail(), student.getGender());
-				for(Address address:addressRecord){
-					if(student.getAddressId().equals(address.getAddressId())){
-						studentDTO.setAddress(address);
-					}
-				}
-				studentsList.add(studentDTO);
-			}
+			studentsList=studentsRecord.stream()
+					.map(student -> {
+						Address address1 = addressRecord.stream()
+								.filter(address -> address.getAddressId().equals(student.getAddressId())).findFirst().get();
+								return new StudentDTO(student.getStudentId(), student.getAge(), student.getMobile(), student.getFirstName(), student.getLastName(), student.getEmail(), student.getGender(),address1);
+					})
+					.collect(Collectors.toList());
 		}catch (Exception e){
 		System.out.println(e.getMessage());
 		}
 		return studentsList;
 	}
 
-
 	@Override
 	public boolean updateStudent(StudentDTO studentDTO) {
-		addressService.updateAddress(studentDTO.getAddress());
+		addressService.insertAddress(studentDTO.getAddress());
 		student=new Student(studentDTO.getStudentId(), studentDTO.getAge(), studentDTO.getMobile(), studentDTO.getFirstName(), studentDTO.getLastName(), studentDTO.getEmail(), studentDTO.getGender(), studentDTO.getAddress().getAddressId());
 		return studentDao.update(student);
 

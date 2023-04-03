@@ -1,7 +1,7 @@
 package org.example.controller;
 
 
-import static org.example.controller.Main.reader;
+import static org.example.controller.Menu.reader;
 import org.example.dto.StudentDTO;
 import org.example.entity.Address;
 import org.example.service.StudentService;
@@ -11,9 +11,6 @@ import java.util.List;
 
 public class StudentInfo {
 	StudentService studentService;
-	String firstName,lastName,email,gender,studentId;
-	Long mobile;
-	int age;
 	StudentDTO studentDTO=null;
 	Address address=null;
 
@@ -21,6 +18,9 @@ public class StudentInfo {
 		this.studentService = studentService;
 	}
 	public StudentDTO getInput() {
+		String firstName,lastName,email,gender,studentId;
+		long mobile;
+		int age;
 
 		try{
 			Util util=new Util();
@@ -109,7 +109,7 @@ public class StudentInfo {
 
 				studentDTO=getInput();
 				studentDTO.setStudentId(studentId);
-				studentId=studentService.isStudentExistForEdit(studentDTO);
+				studentId=studentService.isStudentExist(studentDTO,true);
 				if(studentId==null){
 					if(studentService.updateStudent(studentDTO)){
 						System.out.println("Updated..");

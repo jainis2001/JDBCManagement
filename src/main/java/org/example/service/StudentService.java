@@ -8,8 +8,8 @@ import java.util.List;
 public interface StudentService {
 	boolean insertStudent(StudentDTO studentModel);
 	StudentDTO getRecordById(String studentId);
-	String isStudentExist(StudentDTO studentDTO);
-	String isStudentExistForEdit(StudentDTO studentDTO);
+	String isStudentExist(StudentDTO studentDTO,boolean isForUpdate);
+
 	boolean deleteStudent(String email);
 
 	List<StudentDTO> viewStudents();

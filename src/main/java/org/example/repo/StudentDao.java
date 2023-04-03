@@ -6,8 +6,8 @@ import java.util.List;
 
 
 public interface StudentDao {
-	String isStuentExist(Student student);
-	String isStuentExistForEdit(Student student);
+	String isStuentExist(Student student,boolean isForUpdate);
+
 	boolean insert(Student student);
 	boolean update(Student student);
 	boolean delete(String studentId);

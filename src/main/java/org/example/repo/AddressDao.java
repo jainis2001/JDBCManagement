@@ -10,7 +10,7 @@ public interface AddressDao {
 
 	boolean insertAddress(Address address);
 
-	boolean updateAddress(Address address);
+
 
 	Address getByAddressId(String addressId);
 

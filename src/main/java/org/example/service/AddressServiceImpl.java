@@ -25,26 +25,7 @@ public class AddressServiceImpl implements AddressService{
 
 	}
 
-	public void updateAddress(Address address) {
-		try{
-			String addressId=addressDao.findByAddress(address);
 
-			if(addressId==null)
-			{
-				if(!addressDao.insertAddress(address)){
-					System.err.println("Address Could Not Inserted");
-				}
-			}else{
-				address.setAddressId(addressId);
-				if(!addressDao.updateAddress(address)){
-					System.err.println("Address Could Not Updated");
-				}
-			}
-		}catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-	}
 
 
 }
