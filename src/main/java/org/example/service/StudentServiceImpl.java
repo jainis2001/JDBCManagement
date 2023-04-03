@@ -4,17 +4,22 @@ import org.example.dto.StudentDTO;
 import org.example.entity.Address;
 import org.example.entity.Student;
 import org.example.repo.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-
+@Service
 public class StudentServiceImpl implements StudentService{
-	private final StudentDao studentDao=new StudentDaoImpl();
-	private final AddressDao addressDao=new AddressDaoImpl();
-	private final AddressService addressService=new AddressServiceImpl();
+	@Autowired
+	private  StudentDao studentDao;
+	@Autowired
+	private  AddressDao addressDao;
+	@Autowired
+	private  AddressService addressService;
 
 	Student student;
 

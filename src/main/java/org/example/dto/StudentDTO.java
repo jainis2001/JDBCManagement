@@ -1,14 +1,16 @@
 package org.example.dto;
 
 import org.example.entity.Address;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class StudentDTO {
 	private String studentId;
 	private int age;
 	private long mobile;
 	private String firstName,lastName,email,gender;
 	private Address address;
-
 
 	public StudentDTO(String studentId, int age, long mobile, String firstName, String lastName, String email, String gender, Address address) {
 		this.studentId = studentId;
@@ -29,6 +31,10 @@ public class StudentDTO {
 		this.lastName = lastName;
 		this.email = email;
 		this.gender = gender;
+	}
+
+	public StudentDTO(Address address) {
+		this.address = address;
 	}
 
 	public StudentDTO() {

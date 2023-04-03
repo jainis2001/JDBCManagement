@@ -2,6 +2,7 @@ package org.example.repo;
 
 import org.example.entity.Student;
 import org.example.util.DBConnection;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
+@Repository
 public class StudentDaoImpl implements StudentDao{
 
 	@Override

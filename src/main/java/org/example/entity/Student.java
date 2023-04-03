@@ -1,5 +1,8 @@
 package org.example.entity;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Student {
 	private String studentId;
 	private int age;
@@ -31,7 +34,9 @@ public class Student {
 	}
 
 
+	public Student(){
 
+}
 	public String getStudentId() {
 		return studentId;
 	}

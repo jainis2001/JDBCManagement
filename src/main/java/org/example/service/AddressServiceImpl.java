@@ -2,8 +2,9 @@ package org.example.service;
 
 import org.example.entity.Address;
 import org.example.repo.*;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class AddressServiceImpl implements AddressService{
 	private final AddressDao addressDao=new AddressDaoImpl();
 	@Override
