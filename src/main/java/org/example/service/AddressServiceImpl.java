@@ -2,6 +2,7 @@ package org.example.service;
 
 import org.example.entity.Address;
 import org.example.repo.*;
+import org.example.util.Util;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +15,7 @@ public class AddressServiceImpl implements AddressService{
 
 				if(addressId==null)
 				{
+					address.setAddressId(new Util().createId());
 					if(!addressDao.insertAddress(address)){
 						System.err.println("Address Could Not Inserted");
 					}

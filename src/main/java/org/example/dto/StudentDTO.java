@@ -115,6 +115,7 @@ public class StudentDTO {
 				", lastName='" + lastName + '\'' +
 				", email='" + email + '\'' +
 				", gender='" + gender +
+				", address='" + address.getAddressId() +
 				'}';
 	}
 }

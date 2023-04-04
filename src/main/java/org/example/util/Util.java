@@ -7,7 +7,6 @@ public class Util {
 
 	public String createId(){
 		return String.valueOf(UUID.randomUUID());
-
 	}
 
 	public static boolean verifyMobile(Long mobile) {

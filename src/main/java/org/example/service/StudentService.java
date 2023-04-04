@@ -10,7 +10,7 @@ public interface StudentService {
 	StudentDTO getRecordById(String studentId);
 	String isStudentExist(StudentDTO studentDTO,boolean isForUpdate);
 
-	boolean deleteStudent(String email);
+	boolean deleteStudent(String studentId);
 
 	List<StudentDTO> viewStudents();
 
