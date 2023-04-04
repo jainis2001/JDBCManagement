@@ -18,7 +18,7 @@ public class AddressDaoImpl implements AddressDao{
 		String addressId=null;
 
 		try(Connection con= DBConnection.getConnection()){
-			PreparedStatement pstmt=con.prepareStatement(Queries.findByAddress);
+			PreparedStatement pstmt=con.prepareStatement(Queries.FIND_BY_ADDRESS);
 			pstmt.setString(1,address.getLandmark());
 			pstmt.setInt(2,address.getPincode());
 			ResultSet result=pstmt.executeQuery();
@@ -37,7 +37,7 @@ public class AddressDaoImpl implements AddressDao{
 		boolean isInserted=false;
 
 		try(Connection con= DBConnection.getConnection()){
-			PreparedStatement pStmtAddress=con.prepareStatement(Queries.insertAddress);
+			PreparedStatement pStmtAddress=con.prepareStatement(Queries.INSERT_ADDRESS);
 			pStmtAddress.setString(1, address.getAddressId());
 			pStmtAddress.setString(2, address.getLandmark());
 			pStmtAddress.setString(3, address.getCity());
@@ -60,7 +60,7 @@ public class AddressDaoImpl implements AddressDao{
 	public Address getByAddressId(String addressId) {
 		Address address=null;
 		try(Connection con= DBConnection.getConnection()) {
-			PreparedStatement pstmt=con.prepareStatement(Queries.getByAddressId);
+			PreparedStatement pstmt=con.prepareStatement(Queries.GET_BY_ADDRESS_ID);
 			pstmt.setString(1,addressId);
 			ResultSet result=pstmt.executeQuery();
 			if(result.next()){
@@ -79,7 +79,7 @@ public class AddressDaoImpl implements AddressDao{
 		List<Address> addressList=new ArrayList<>();
 		try(Connection con= DBConnection.getConnection()) {
 			Statement stmt=con.createStatement();
-			ResultSet result=stmt.executeQuery(Queries.getAddresses);
+			ResultSet result=stmt.executeQuery(Queries.GET_ADDRESS);
 			while(result.next()){
 				Address address=new Address(result.getString(1),result.getString(2),result.getString(3),result.getString(4),result.getInt(5));
 				addressList.add(address);

@@ -20,14 +20,14 @@ public class StudentDaoImpl implements StudentDao{
 		{
 			PreparedStatement pstmt=null;
 			if(isForUpdate){
-				pstmt=con.prepareStatement(Queries.studentExistForEdit);
+				pstmt=con.prepareStatement(Queries.STUDENT_EXISTS_FOR_EDIT);
 				pstmt.setString(1, student.getEmail());
 				pstmt.setString(2, student.getFirstName());
 				pstmt.setString(3, student.getLastName());
 				pstmt.setString(4, student.getStudentId());
 			}
 			else{
-				pstmt=con.prepareStatement(Queries.studentExist);
+				pstmt=con.prepareStatement(Queries.STUDENT_EXISTS);
 				pstmt.setString(1, student.getEmail());
 				pstmt.setString(2, student.getFirstName());
 				pstmt.setString(3, student.getLastName());
@@ -52,7 +52,7 @@ public class StudentDaoImpl implements StudentDao{
 
 		try(Connection con= DBConnection.getConnection())
 		{
-			PreparedStatement pStmtStudent=con.prepareStatement(Queries.insertStudent);
+			PreparedStatement pStmtStudent=con.prepareStatement(Queries.INSERT);
 			pStmtStudent.setString(1,student.getStudentId());
 			pStmtStudent.setString(2,student.getFirstName());
 			pStmtStudent.setString(3,student.getLastName());
@@ -78,7 +78,7 @@ public class StudentDaoImpl implements StudentDao{
 
 
 		try(Connection con= DBConnection.getConnection()) {
-			PreparedStatement pstmt=con.prepareStatement(Queries.updateStudent);
+			PreparedStatement pstmt=con.prepareStatement(Queries.UPDATE);
 			pstmt.setString(1,student.getFirstName());
 			pstmt.setString(2,student.getLastName());
 			pstmt.setString(3,student.getEmail());
@@ -104,7 +104,7 @@ public class StudentDaoImpl implements StudentDao{
 		boolean isDeleted=false;
 
 		try(Connection con= DBConnection.getConnection()){
-			PreparedStatement pstmt=con.prepareStatement(Queries.deleteStudent);
+			PreparedStatement pstmt=con.prepareStatement(Queries.DELETE);
 			pstmt.setString(1,studentId);
 			int result=pstmt.executeUpdate();
 			if(result==1){
@@ -123,7 +123,7 @@ public class StudentDaoImpl implements StudentDao{
 
 		try(Connection con= DBConnection.getConnection()){
 			Statement stmt=con.createStatement();
-			ResultSet result=stmt.executeQuery(Queries.getStudents);
+			ResultSet result=stmt.executeQuery(Queries.GET_STUDENTS);
 			while(result.next()) {
 				Student student=new Student(result.getString(1),
 						result.getInt(2),
@@ -150,7 +150,7 @@ public class StudentDaoImpl implements StudentDao{
 		Student student=null;
 
 		try(Connection con= DBConnection.getConnection()){
-			PreparedStatement pstmt=con.prepareStatement(Queries.getStudentById);
+			PreparedStatement pstmt=con.prepareStatement(Queries.GET_STUDENT_BY_ID);
 			pstmt.setString(1,studentId);
 			ResultSet result=pstmt.executeQuery();
 			if(result.next()){
