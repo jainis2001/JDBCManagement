@@ -56,7 +56,6 @@ public class AddressDaoImpl implements AddressDao{
 	}
 
 
-
 	@Override
 	public Address getByAddressId(String addressId) {
 		Address address=null;

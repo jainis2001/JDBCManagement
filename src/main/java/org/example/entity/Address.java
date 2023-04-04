@@ -8,7 +8,10 @@ public class Address {
 	private int pincode;
 	private String landmark,city,state;
 
-	public Address(String addressId, String landmark,  String city, String state,int pincode) {
+	public Address() {
+	}
+
+	public Address(String addressId, String landmark, String city, String state, int pincode) {
 		this.addressId = addressId;
 		this.pincode = pincode;
 		this.landmark = landmark;
@@ -16,9 +19,7 @@ public class Address {
 		this.state = state;
 	}
 
-	public Address() {
 
-	}
 
 	public int getPincode() {
 		return pincode;

@@ -11,8 +11,6 @@ public interface StudentDao {
 	boolean insert(Student student);
 	boolean update(Student student);
 	boolean delete(String studentId);
-
 	List<Student> getAllStudentsRecords();
-
 	Student getByStudentId(String studentId);
 }

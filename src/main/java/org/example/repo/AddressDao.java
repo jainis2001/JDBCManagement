@@ -10,8 +10,6 @@ public interface AddressDao {
 
 	boolean insertAddress(Address address);
 
-
-
 	Address getByAddressId(String addressId);
 
 	List<Address> getAllAddressRecords();

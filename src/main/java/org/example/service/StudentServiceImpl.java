@@ -59,7 +59,7 @@ public class StudentServiceImpl implements StudentService{
 		String studentId=null;
 		try{
 
-			student=new Student(studentDTO.getFirstName(), studentDTO.getLastName(), studentDTO.getEmail());
+			student=new Student(studentDTO.getStudentId(),studentDTO.getFirstName(), studentDTO.getLastName(), studentDTO.getEmail());
 			if(isForUpdate){
 				studentId=studentDao.isStuentExist(student,true);
 
@@ -92,7 +92,6 @@ public class StudentServiceImpl implements StudentService{
 		}
 	return isDeleted;
 	}
-
 
 
 	@Override

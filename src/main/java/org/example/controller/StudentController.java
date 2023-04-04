@@ -20,13 +20,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/students")
-public class StudentInfo {
+public class StudentController {
 	@Autowired
 	private StudentService studentService;
-
-//	@Autowired
-	Address address;
-
 
 	@GetMapping("")
 	public List<StudentDTO> getStudents(){

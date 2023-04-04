@@ -23,22 +23,8 @@ public class StudentDTO {
 		this.address=address;
 
 	}
-	public StudentDTO(String studentId, int age, long mobile, String firstName, String lastName, String email, String gender) {
-		this.studentId = studentId;
-		this.age = age;
-		this.mobile = mobile;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.gender = gender;
-	}
-
-	public StudentDTO(Address address) {
-		this.address = address;
-	}
 
 	public StudentDTO() {
-
 	}
 
 	public String getStudentId() {
