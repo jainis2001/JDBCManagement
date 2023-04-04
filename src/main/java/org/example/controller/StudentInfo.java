@@ -18,27 +18,25 @@ public class StudentInfo {
 		this.studentService = studentService;
 	}
 	public StudentDTO getInput() {
-		String firstName,lastName,email,gender,studentId;
-		long mobile;
-		int age;
+
 
 		try{
 			Util util=new Util();
-			studentId= util.createId();
+			String studentId= util.createId();
 			System.out.println("Enter FirstName:");
-			firstName = reader.readLine();
+			String firstName = reader.readLine();
 			System.out.println("Enter LastName:");
-			lastName=reader.readLine();
+			String lastName=reader.readLine();
 			System.out.println("Enter Email:");
-			email=reader.readLine();
+			String email=reader.readLine();
 			if(Util.verifyEmail(email)) {throw new Exception("Wrong Email");}
 			System.out.println("Enter Gender:");
-			gender=reader.readLine();
+			String gender=reader.readLine();
 			System.out.println("Enter Mobile Number:");
-			mobile=Long.parseLong(reader.readLine());
+			Long mobile=Long.parseLong(reader.readLine());
 			if(!Util.verifyMobile(mobile)) {throw new Exception("Mobile Number should be of only 10 digits");}
 			System.out.println("Enter Age:");
-			age=Integer.parseInt(reader.readLine());
+			int age=Integer.parseInt(reader.readLine());
 			Address address=getAddressInput();
 			studentDTO=new StudentDTO(studentId,age,mobile,firstName,lastName,email,gender,address);
 
@@ -51,7 +49,6 @@ public class StudentInfo {
 		return studentDTO;
 
 	}
-
 
 	public Address getAddressInput(){
 
@@ -106,7 +103,6 @@ public class StudentInfo {
 	public void selectEditInput(StudentDTO studentDTO) {
 		String studentId=studentDTO.getStudentId();
 		try{
-
 				studentDTO=getInput();
 				studentDTO.setStudentId(studentId);
 				studentId=studentService.isStudentExist(studentDTO,true);
