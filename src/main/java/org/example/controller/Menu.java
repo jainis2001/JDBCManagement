@@ -49,19 +49,22 @@ public class Menu {
 
 	}
 
+	public int displayOptions() throws IOException {
+		System.out.println("\n1: Insertion");
+		System.out.println("2: Update");
+		System.out.println("3: Delete Student");
+		System.out.println("4: Show");
+		System.out.println("0: Exit");
+		System.out.println("Enter Choice:");
+		return Integer.parseInt(reader.readLine());
+	}
 
 	public void getMenu(){
 		try
 		{
 			while(true){
-				System.out.println("\n1: Insertion");
-				System.out.println("2: Update");
-				System.out.println("3: Delete Student");
-				System.out.println("4: Show");
-				System.out.println("0: Exit");
-				System.out.println("Enter Choice:");
-				int choice=Integer.parseInt(reader.readLine());
-				switch (choice){
+
+				switch (displayOptions()){
 					case 1:
 						insert();
 						break;
