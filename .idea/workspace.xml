@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0739b503-fbb0-42cf-bb4d-9820e832081b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/StudentInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/StudentInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/util/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/util/DBConnection.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +109,21 @@
       <option name="project" value="LOCAL" />
       <updated>1680594987208</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="replaced with local variables">
+      <created>1680595299843</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1680595299843</updated>
+    </task>
+    <task id="LOCAL-00006" summary="create string constants for queries">
+      <created>1680595691479</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1680595691479</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -128,6 +142,8 @@
     <MESSAGE value="commit of crud" />
     <MESSAGE value="changes in test cases" />
     <MESSAGE value="put displayOption() to show the operations" />
-    <option name="LAST_COMMIT_MESSAGE" value="put displayOption() to show the operations" />
+    <MESSAGE value="replaced with local variables" />
+    <MESSAGE value="create string constants for queries" />
+    <option name="LAST_COMMIT_MESSAGE" value="create string constants for queries" />
   </component>
 </project>
