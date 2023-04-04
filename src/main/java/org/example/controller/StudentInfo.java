@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,14 +45,24 @@ public class StudentInfo {
 		} else{
 			return "Student already there";
 		}
-
 	}
 
 	@DeleteMapping("/{id}")
 	public String deleteStudent(@PathVariable String id){
 			return studentService.deleteStudent(id)?"Deleted Successfully!":"Could not Deleted!";
+	}
+
+	@PutMapping("/{id}")
+	public String updateStudent(@PathVariable String id,@RequestBody StudentDTO studentDTO){
+		studentDTO.setStudentId(id);
+		if(studentService.isStudentExist(studentDTO,true)==null) {
+			return studentService.updateStudent(studentDTO)?"Updated Successfully!":"Could not Updated!";
+		} else{
+			return "Student already there";
+		}
 
 	}
+
 
 
 

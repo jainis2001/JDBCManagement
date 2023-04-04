@@ -116,6 +116,7 @@ public class StudentServiceImpl implements StudentService{
 
 	@Override
 	public boolean updateStudent(StudentDTO studentDTO) {
+
 		addressService.insertAddress(studentDTO.getAddress());
 		student=new Student(studentDTO.getStudentId(), studentDTO.getAge(), studentDTO.getMobile(), studentDTO.getFirstName(), studentDTO.getLastName(), studentDTO.getEmail(), studentDTO.getGender(), studentDTO.getAddress().getAddressId());
 		return studentDao.update(student);
