@@ -1,4 +1,7 @@
-package org.example.repo;
+package org.example.util;
+
+import org.springframework.stereotype.Component;
+
 
 public class Queries {
 	public static final String STUDENT_EXISTS="select studentid from tempstudent where email=? and firstname=? and lastname=?";
@@ -12,7 +15,7 @@ public class Queries {
 	public static final String INSERT_ADDRESS="insert into address(addressid,landmark,city,state,pincode) values(?,?,?,?,?)";
 	public static final String GET_BY_ADDRESS_ID="select addressid,landmark,city,state,pincode from address where addressid=?";
 	public static final String GET_ADDRESS="select addressid,landmark,city,state,pincode from address";
-
+	
 
 
 

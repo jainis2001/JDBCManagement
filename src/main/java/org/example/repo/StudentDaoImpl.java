@@ -2,6 +2,8 @@ package org.example.repo;
 
 import org.example.entity.Student;
 import org.example.util.DBConnection;
+import org.example.util.Queries;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 @Repository
 public class StudentDaoImpl implements StudentDao{
+
 
 	@Override
 	public String isStuentExist(Student student,boolean isForUpdate) {
