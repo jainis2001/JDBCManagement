@@ -49,7 +49,7 @@ public class Menu {
 
 	}
 
-	public int displayOptions() throws IOException {
+	public int getChoice() throws IOException {
 		System.out.println("\n1: Insertion");
 		System.out.println("2: Update");
 		System.out.println("3: Delete Student");
@@ -64,7 +64,7 @@ public class Menu {
 		{
 			while(true){
 
-				switch (displayOptions()){
+				switch (getChoice()){
 					case 1:
 						insert();
 						break;
