@@ -37,7 +37,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- spring boot dependencies ends-->
+     <!-- spring boot dependencies ends-->
     </dependencies>
     <build>
         <plugins>
