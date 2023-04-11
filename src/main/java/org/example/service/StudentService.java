@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface StudentService {
 	boolean addStudent(StudentDTO studentDTO);
+	List<StudentDTO> getStudents();
+	boolean deleteStudent(String id);
 
 
 

@@ -37,6 +37,17 @@ public class StudentDTO {
 		this.age = age;
 	}
 
+	public StudentDTO(String id, int age, long mobile, String firstName, String lastName, String email, String gender) {
+		this.id = id;
+		this.age = age;
+		this.mobile = mobile;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.gender = gender;
+
+	}
+
 	public String getId() {
 		return id;
 	}

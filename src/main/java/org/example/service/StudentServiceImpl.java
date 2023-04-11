@@ -10,6 +10,8 @@ import org.example.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -50,5 +52,33 @@ public class StudentServiceImpl implements StudentService {
 		return false;
 	}
 
+	public List<StudentDTO> getStudents() {
 
+		List<StudentDTO> studentDTOS=new ArrayList<>();
+		List<Student> all = studentRepo.findAll();
+		for(Student student:all){
+			StudentDTO studentDTO=new StudentDTO(student.getStudentId(),
+					student.getAge(),
+					student.getMobile(),
+					student.getFirstName(),
+					student.getLastName(),
+					student.getEmail(),
+					student.getGender());
+			studentDTO.setAddressDTO(util.mapToAddressDTO(student.getAddress()));
+			studentDTO.setDepartmentName(student.getDepartment().getDepartmentName());
+			studentDTO.setSubjects(util.mapSubjectsToStringSet(student.getSubjectsSet()));
+			studentDTOS.add(studentDTO);
+		}
+
+		return studentDTOS;
+	}
+
+	public boolean deleteStudent(String id){
+		if(studentRepo.existsById(id)){
+			studentRepo.deleteById(id);
+			return true;
+		}
+		return false;
+
+	}
 }

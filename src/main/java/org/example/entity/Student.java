@@ -1,5 +1,6 @@
 package org.example.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import jakarta.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -46,12 +48,13 @@ public class Student {
 	@JoinColumn(name = "fk_dept_id",referencedColumnName = "dept_id")
 	private Department department;
 
+
 	@ManyToMany
 	@JoinTable(
 			name="student_subject_map",
 			joinColumns = @JoinColumn(name = "fk_student_id",referencedColumnName = "student_id"),
 			inverseJoinColumns = @JoinColumn(name = "fk_subject_id",referencedColumnName = "subject_Id"))
-	private Set<Subject> subjectsSet;
+	private Set<Subject> subjectsSet=new HashSet<>();
 
 	public Student(String firstName, String lastName, String email) {
 		this.firstName = firstName;

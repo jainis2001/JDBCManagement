@@ -36,6 +36,15 @@ public class Util {
 				addressDTO.getState(),
 				addressDTO.getPinCode());
 	}
+
+	public AddressDTO mapToAddressDTO(Address address) {
+		return new AddressDTO(
+				address.getId(),
+				address.getLandmark(),
+				address.getCity(),
+				address.getState(),
+				address.getPincode());
+	}
 	public Department mapToDepartmentEntity(String departmentName) {
 		return new Department(departmentName);
 	}
@@ -43,6 +52,11 @@ public class Util {
 	public Set<Subject> mapToSubjectSet(Set<String> subjects) {
 		return subjects.stream()
 				.map(Subject::new
+				).collect(Collectors.toSet());
+	}
+	public Set<String> mapSubjectsToStringSet(Set<Subject> subjects) {
+		return subjects.stream()
+				.map(Subject::getSubjectName
 				).collect(Collectors.toSet());
 	}
 

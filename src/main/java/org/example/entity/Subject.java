@@ -1,5 +1,6 @@
 package org.example.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -22,9 +24,9 @@ public class Subject {
 	private String id;
 	@Column(name = "name")
 	private String subjectName;
-
+//	@JsonIgnore
 	@ManyToMany(mappedBy = "subjectsSet")
-	private Set<Student> studentsSet;
+	private Set<Student> studentsSet=new HashSet<>();
 
 	public Subject() {
 	}

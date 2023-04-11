@@ -2,6 +2,7 @@ package org.example.resource;
 
 
 import org.example.dto.StudentDTO;
+import org.example.entity.Student;
 import org.example.service.StudentService;
 import org.example.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,19 @@ public class StudentResource {
 	@Autowired
 	private StudentService studentService;
 
+	@GetMapping
+	public List<StudentDTO> getAll(){
+		return studentService.getStudents();
+	}
 	@PostMapping
 	public String createStudent(@RequestBody StudentDTO studentDTO){
 		return (studentService.addStudent(studentDTO))?"Inserted":"Could not inserted";
+
+	}
+
+	@DeleteMapping("/{id}")
+	public String deleteStudent(@PathVariable("id") String id){
+		return (studentService.deleteStudent(id))?"Deleted":"Could not Deleted";
 
 	}
 
