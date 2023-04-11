@@ -2,17 +2,14 @@ package org.example.service;
 
 
 import org.example.dto.StudentDTO;
+import org.example.entity.Student;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 public interface StudentService {
-	boolean insertStudent(StudentDTO studentModel);
-	StudentDTO getRecordById(String studentId);
-	String isStudentExist(StudentDTO studentDTO,boolean isForUpdate);
+	boolean addStudent(StudentDTO studentDTO);
 
-	boolean deleteStudent(String studentId);
 
-	List<StudentDTO> viewStudents();
 
-	boolean updateStudent(StudentDTO studentDTO);
 }

@@ -1,32 +1,42 @@
 package org.example.entity;
 
+import jakarta.persistence.*;
+
 import org.springframework.stereotype.Component;
 
-@Component
+@Entity
+@Table(name = "address")
 public class Address {
-	private String addressId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "address_id")
+	private String id;
+	@Column(name = "landmark")
+	private String landmark;
+	@Column(name = "city")
+	private String city;
+	@Column(name = "state")
+	private String state;
+	@Column(name = "pincode")
 	private int pincode;
-	private String landmark,city,state;
 
 	public Address() {
 	}
 
-	public Address(String addressId, String landmark, String city, String state, int pincode) {
-		this.addressId = addressId;
-		this.pincode = pincode;
+	public Address(String id, String landmark, String city, String state, int pincode) {
+		this.id = id;
 		this.landmark = landmark;
 		this.city = city;
 		this.state = state;
-	}
-
-
-
-	public int getPincode() {
-		return pincode;
-	}
-
-	public void setPincode(int pincode) {
 		this.pincode = pincode;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getLandmark() {
@@ -53,23 +63,22 @@ public class Address {
 		this.state = state;
 	}
 
-	public String getAddressId() {
-		return addressId;
+	public int getPincode() {
+		return pincode;
 	}
 
-	public void setAddressId(String addressId) {
-		this.addressId = addressId;
+	public void setPincode(int pincode) {
+		this.pincode = pincode;
 	}
-
 
 	@Override
 	public String toString() {
 		return "Address{" +
-				"addressId='" + addressId + '\'' +
+				"id='" + id + '\'' +
 				", landmark='" + landmark + '\'' +
-				", pincode=" + pincode +
 				", city='" + city + '\'' +
 				", state='" + state + '\'' +
+				", pincode=" + pincode +
 				'}';
 	}
 }

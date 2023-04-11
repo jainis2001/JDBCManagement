@@ -1,34 +1,17 @@
 package org.example.service;
 
 import org.example.entity.Address;
-import org.example.repo.*;
-import org.example.util.Util;
+import org.example.repo.AddressRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AddressServiceImpl implements AddressService{
-	private final AddressDao addressDao=new AddressDaoImpl();
+public class AddressServiceImpl implements AddressService {
+	@Autowired
+	private AddressRepo addressRepo;
 	@Override
-	public void insertAddress(Address address) {
-		try{
-				String addressId=addressDao.findByAddress(address);
-
-				if(addressId==null)
-				{
-					address.setAddressId(new Util().createId());
-					if(!addressDao.insertAddress(address)){
-						System.err.println("Address Could Not Inserted");
-					}
-				}else{
-					address.setAddressId(addressId);
-				}
-		}catch (Exception e) {
-		System.out.println(e.getMessage());
-		}
-
+	public Address insertAddress(Address address) {
+		Address existAddress=addressRepo.findByLandmarkAndPincode(address.getLandmark(),address.getPincode());
+		return (existAddress==null)?addressRepo.save(address):existAddress;
 	}
-
-
-
-
 }

@@ -1,48 +1,101 @@
 package org.example.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
-@Component
+import java.util.Set;
+
+
+@Entity
+@Table(name = "student")
 public class Student {
-	private String studentId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "student_id")
+	private String id;
+	@Column(name = "age")
 	private int age;
+	@Column(name = "mobile")
 	private long mobile;
-	private String firstName,lastName,email,gender;
-	private String addressId;
+	@Column(name = "first_name")
+	private String firstName;
+	@Column(name = "last_name")
+	private String lastName;
+
+	@Column(name = "email")
+	private String email;
+	@Column(name = "gender")
+	private String gender;
+
+	@OneToOne
+	@JoinColumn(name = "fk_address_id",referencedColumnName = "address_id")
+	private Address address;
+
+	@OneToOne
+	@JoinColumn(name = "fk_dept_id",referencedColumnName = "dept_id")
+	private Department department;
+
+	@ManyToMany
+	@JoinTable(
+			name="student_subject_map",
+			joinColumns = @JoinColumn(name = "fk_student_id",referencedColumnName = "student_id"),
+			inverseJoinColumns = @JoinColumn(name = "fk_subject_id",referencedColumnName = "subject_Id"))
+	private Set<Subject> subjectsSet;
 
 	public Student(String firstName, String lastName, String email) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 	}
-	public Student(String studentId,String firstName, String lastName, String email) {
-		this.studentId=studentId;
+	public Student(String id,String firstName, String lastName, String email) {
+		this.id=id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 	}
 
-	public Student(String studentId, int age, long mobile, String firstName, String lastName, String email, String gender, String addressId) {
-		this.studentId = studentId;
+	public Student(String id, int age, long mobile, String firstName, String lastName, String email, String gender, Address address, Department department, Set<Subject> subjectsSet) {
+		this.id = id;
 		this.age = age;
 		this.mobile = mobile;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.gender = gender;
-		this.addressId = addressId;
+		this.address = address;
+		this.department = department;
+		this.subjectsSet = subjectsSet;
 	}
 
+	public Student(String id, int age, long mobile, String firstName, String lastName, String email, String gender) {
+		this.id = id;
+		this.age = age;
+		this.mobile = mobile;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.gender = gender;
+	}
 
-	public Student(){
+	public Student(){}
 
-}
 	public String getStudentId() {
-		return studentId;
+		return id;
 	}
 
-	public void setStudentId(String studentId) {
-		this.studentId = studentId;
+	public void setStudentId(String id) {
+		this.id = id;
 	}
 
 	public int getAge() {
@@ -93,25 +146,43 @@ public class Student {
 		this.gender = gender;
 	}
 
-	public String getAddressId() {
-		return addressId;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setAddressId(String addressId) {
-		this.addressId = addressId;
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	public Set<Subject> getSubjectsSet() {
+		return subjectsSet;
+	}
+
+	public void setSubjectsSet(Set<Subject> subjectsSet) {
+		this.subjectsSet = subjectsSet;
 	}
 
 	@Override
 	public String toString() {
 		return "Student{" +
-				"studentId='" + studentId + '\'' +
+				"id='" + id + '\'' +
 				", age=" + age +
 				", mobile=" + mobile +
 				", firstName='" + firstName + '\'' +
 				", lastName='" + lastName + '\'' +
 				", email='" + email + '\'' +
 				", gender='" + gender + '\'' +
-				", addressId='" + addressId + '\'' +
+				", address=" + address +
+				", department=" + department +
+				", subjectsSet=" + subjectsSet +
 				'}';
 	}
 }

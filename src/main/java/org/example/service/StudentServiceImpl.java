@@ -2,126 +2,53 @@ package org.example.service;
 
 import org.example.dto.StudentDTO;
 import org.example.entity.Address;
+import org.example.entity.Department;
 import org.example.entity.Student;
-import org.example.repo.*;
+import org.example.entity.Subject;
+import org.example.repo.StudentRepo;
+import org.example.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Set;
 
 @Service
-public class StudentServiceImpl implements StudentService{
+public class StudentServiceImpl implements StudentService {
 	@Autowired
-	private  StudentDao studentDao;
+	private StudentRepo studentRepo;
+//	@Autowired
+	private Address address;
+//	@Autowired
+	private Department department;
+//	@Autowired
+	private Student student;
+
 	@Autowired
-	private  AddressDao addressDao;
+	private Util util;
 	@Autowired
-	private  AddressService addressService;
-
-	Student student;
-
-	@Override
-	public boolean insertStudent(StudentDTO studentDTO) {
-		addressService.insertAddress(studentDTO.getAddress());
-		student=new Student(studentDTO.getStudentId(), studentDTO.getAge(), studentDTO.getMobile(), studentDTO.getFirstName(), studentDTO.getLastName(), studentDTO.getEmail(), studentDTO.getGender(), studentDTO.getAddress().getAddressId());
-		return studentDao.insert(student);
-	}
+	private AddressService addressService;
+	@Autowired
+	private DepartmentService departmentService;
+	@Autowired
+	private SubjectService subjectService;
 
 	@Override
-	public StudentDTO getRecordById(String studentId) {
-		StudentDTO studentDTO=null;
-		try{
-			Student student=studentDao.getByStudentId(studentId);
-			if(student!=null){
-				Address address=addressDao.getByAddressId(student.getAddressId());
-				studentDTO=new StudentDTO(student.getStudentId(),
-						student.getAge(),
-						student.getMobile(),
-						student.getFirstName(),
-						student.getLastName(),
-						student.getEmail(),
-						student.getGender(),
-						address);
-			}
+	public boolean addStudent(StudentDTO studentDTO) {
 
-
-		}catch (Exception e){
-			System.out.println(e.getMessage());
+		if(studentRepo.findByFirstNameAndEmail(studentDTO.getFirstName(),studentDTO.getEmail())==null){
+			student=util.mapToStudentEntity(studentDTO);
+			address=addressService.insertAddress(util.mapToAddressEntity(studentDTO.getAddressDTO()));
+			student.setAddress(address);
+			department=departmentService.addDepartment(util.mapToDepartmentEntity(studentDTO.getDepartmentName()));
+			student.setDepartment(department);
+			Set<Subject> subjects=util.mapToSubjectSet(studentDTO.getSubjects());
+			student.setSubjectsSet(subjectService.addSubjects(subjects));
+			studentRepo.save(student);
+			return true;
 		}
-		return studentDTO;
-	}
 
-	@Override
-	public String isStudentExist(StudentDTO studentDTO,boolean isForUpdate) {
-		String studentId=null;
-		try{
-
-			student=new Student(studentDTO.getStudentId(),studentDTO.getFirstName(), studentDTO.getLastName(), studentDTO.getEmail());
-			if(isForUpdate){
-				studentId=studentDao.isStuentExist(student,true);
-
-			}else{
-				studentId=studentDao.isStuentExist(student,false);
-
-			}
-		}catch (Exception e){
-		System.out.println(e.getMessage());
-			System.out.println("Error while inserting student");
-		}
-		return studentId;
+		return false;
 	}
 
 
-
-	@Override
-	public boolean deleteStudent(String studentId) {
-		 boolean isDeleted=false;
-		try{
-			Student student=studentDao.getByStudentId(studentId);
-			if(student!=null){
-				if(studentDao.delete(student.getStudentId())){
-					isDeleted=true;
-				}
-			}
-
-		}catch (Exception e){
-			System.out.println(e.getMessage());
-		}
-	return isDeleted;
-	}
-
-
-	@Override
-	public List<StudentDTO> viewStudents() {
-		List<StudentDTO> studentsList=new ArrayList<>();
-		try{
-			List<Student> studentsRecord=studentDao.getAllStudentsRecords();
-			List<Address> addressRecord=addressDao.getAllAddressRecords();
-			studentsList=studentsRecord.stream()
-					.map(student -> {
-						Address address1 = addressRecord.stream()
-								.filter(address -> address.getAddressId().equals(student.getAddressId())).findFirst().get();
-								return new StudentDTO(student.getStudentId(), student.getAge(), student.getMobile(), student.getFirstName(), student.getLastName(), student.getEmail(), student.getGender(),address1);
-					})
-					.collect(Collectors.toList());
-		}catch (Exception e){
-		System.out.println(e.getMessage());
-		}
-		return studentsList;
-	}
-
-	@Override
-	public boolean updateStudent(StudentDTO studentDTO) {
-
-		addressService.insertAddress(studentDTO.getAddress());
-		student=new Student(studentDTO.getStudentId(), studentDTO.getAge(), studentDTO.getMobile(), studentDTO.getFirstName(), studentDTO.getLastName(), studentDTO.getEmail(), studentDTO.getGender(), studentDTO.getAddress().getAddressId());
-		return studentDao.update(student);
-
-
-	}
 }
-
-

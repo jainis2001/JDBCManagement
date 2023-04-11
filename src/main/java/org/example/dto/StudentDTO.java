@@ -1,54 +1,48 @@
 package org.example.dto;
 
-import org.example.entity.Address;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import org.example.entity.Subject;
 import org.springframework.stereotype.Component;
+
+import java.util.Set;
 
 @Component
 public class StudentDTO {
-	private String studentId;
+
+	private String id;
 	private int age;
 	private long mobile;
-	private String firstName,lastName,email,gender;
-	private Address address;
-
-	public StudentDTO(String studentId, int age, long mobile, String firstName, String lastName, String email, String gender, Address address) {
-		this.studentId = studentId;
-		this.age = age;
-		this.mobile = mobile;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.gender = gender;
-		this.address=address;
-
-	}
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String gender;
+	private AddressDTO addressDTO;
+	private String departmentName;
+	private Set<String> subjects;
 
 	public StudentDTO() {
 	}
 
-	public String getStudentId() {
-		return studentId;
+	public StudentDTO(String id, String firstName, String lastName, String email, int age) {
+		this.id=id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.age = age;
 	}
-
-	public void setStudentId(String studentId) {
-		this.studentId = studentId;
-	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
+	public StudentDTO(String firstName, String lastName, String email, int age) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
 		this.age = age;
 	}
 
-	public long getMobile() {
-		return mobile;
+	public String getId() {
+		return id;
 	}
 
-	public void setMobile(long mobile) {
-		this.mobile = mobile;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -83,24 +77,59 @@ public class StudentDTO {
 		this.gender = gender;
 	}
 
-	public Address getAddress() {
-		return address;
+	public int getAge() {
+		return age;
 	}
 
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public long getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(long mobile) {
+		this.mobile = mobile;
+	}
+
+	public AddressDTO getAddressDTO() {
+		return addressDTO;
+	}
+
+	public void setAddressDTO(AddressDTO addressDTO) {
+		this.addressDTO = addressDTO;
+	}
+
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
+	public Set<String> getSubjects() {
+		return subjects;
+	}
+
+	public void setSubjects(Set<String> subjects) {
+		this.subjects = subjects;
 	}
 
 	@Override
 	public String toString() {
-		return "StudentModel{" +
-				"studentId='" + studentId + '\'' +
+		return "StudentDTO{" +
+				"id='" + id + '\'' +
 				", age=" + age +
 				", mobile=" + mobile +
 				", firstName='" + firstName + '\'' +
 				", lastName='" + lastName + '\'' +
 				", email='" + email + '\'' +
-				", gender='" + gender +
+				", gender='" + gender + '\'' +
+				", addressDTO=" + addressDTO +
+				", departmentName='" + departmentName + '\'' +
+				", subjects=" + subjects +
 				'}';
 	}
 }
