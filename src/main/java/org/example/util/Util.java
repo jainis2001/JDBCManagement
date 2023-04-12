@@ -1,16 +1,17 @@
 package org.example.util;
 
 import org.example.dto.AddressDTO;
+import org.example.dto.response.DepartmentDTO;
 import org.example.dto.StudentDTO;
+import org.example.dto.response.*;
 import org.example.entity.Address;
 import org.example.entity.Department;
 import org.example.entity.Student;
 import org.example.entity.Subject;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Set;
-import java.util.UUID;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Component
@@ -58,6 +59,28 @@ public class Util {
 		return subjects.stream()
 				.map(Subject::getSubjectName
 				).collect(Collectors.toSet());
+	}
+
+	public List<DepartmentDTO> mapDepartmentToDepartmentDTOList(List<Department> departments) {
+		return departments.stream()
+				.map(department -> {
+					Set<StudentForResponse> collect = department.getStudentsSet().stream()
+							.map(student -> new StudentForResponse(student.getStudentId(), student.getFirstName(), student.getLastName(), student.getEmail())).collect(Collectors.toSet());
+					return new DepartmentDTO(department.getId(), department.getDepartmentName(),collect);
+				})
+				.collect(Collectors.toList());
+
+	}
+
+	public List<SubjectDTO> mapSubjectToSubjectDTOList(List<Subject> subjects) {
+		return subjects.stream()
+				.map(subject -> {
+					Set<StudentForResponse> collect = subject.getStudentsSet().stream()
+							.map(student -> new StudentForResponse(student.getStudentId(), student.getFirstName(), student.getLastName(), student.getEmail())).collect(Collectors.toSet());
+					return new SubjectDTO(subject.getId(), subject.getSubjectName(),collect);
+				})
+				.collect(Collectors.toList());
+
 	}
 
 }

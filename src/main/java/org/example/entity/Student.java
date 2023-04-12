@@ -173,19 +173,5 @@ public class Student {
 		this.subjectsSet = subjectsSet;
 	}
 
-	@Override
-	public String toString() {
-		return "Student{" +
-				"id='" + id + '\'' +
-				", age=" + age +
-				", mobile=" + mobile +
-				", firstName='" + firstName + '\'' +
-				", lastName='" + lastName + '\'' +
-				", email='" + email + '\'' +
-				", gender='" + gender + '\'' +
-				", address=" + address +
-				", department=" + department +
-				", subjectsSet=" + subjectsSet +
-				'}';
-	}
+
 }

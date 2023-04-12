@@ -1,10 +1,12 @@
 package org.example.resource;
 
 
+import org.example.dto.response.DepartmentDTO;
 import org.example.dto.StudentDTO;
-import org.example.entity.Student;
+import org.example.dto.response.SubjectDTO;
+import org.example.service.DepartmentService;
 import org.example.service.StudentService;
-import org.example.util.Util;
+import org.example.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,10 @@ import java.util.List;
 public class StudentResource {
 	@Autowired
 	private StudentService studentService;
+	@Autowired
+	private DepartmentService departmentService;
+	@Autowired
+	private SubjectService subjectService;
 
 	@GetMapping
 	public List<StudentDTO> getAll(){
@@ -32,12 +38,27 @@ public class StudentResource {
 		return (studentService.addStudent(studentDTO))?"Inserted":"Could not inserted";
 
 	}
-
 	@DeleteMapping("/{id}")
 	public String deleteStudent(@PathVariable("id") String id){
 		return (studentService.deleteStudent(id))?"Deleted":"Could not Deleted";
 
 	}
+	@PutMapping("/{id}")
+	public String updateStudent(@PathVariable("id") String id,@RequestBody StudentDTO studentDTO){
+		studentDTO.setId(id);
+		return (studentService.updateStudent(studentDTO)!=null)?"Updated":"Could not Updated";
+	}
+
+	@GetMapping("/department-students")
+	public List<DepartmentDTO> getStudentsByDepartment(){
+		return departmentService.getStudentsByDepartement();
+	}
+
+	@GetMapping("/subject-students")
+	public List<SubjectDTO> getStudentsBySubject(){
+		return subjectService.getStudentsBySubject();
+	}
+
 
 
 

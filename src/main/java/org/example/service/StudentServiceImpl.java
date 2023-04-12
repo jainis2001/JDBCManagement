@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -39,9 +40,9 @@ public class StudentServiceImpl implements StudentService {
 
 		if(studentRepo.findByFirstNameAndEmail(studentDTO.getFirstName(),studentDTO.getEmail())==null){
 			student=util.mapToStudentEntity(studentDTO);
-			address=addressService.insertAddress(util.mapToAddressEntity(studentDTO.getAddressDTO()));
+			address=addressService.insertAddress(studentDTO.getAddressDTO());
 			student.setAddress(address);
-			department=departmentService.addDepartment(util.mapToDepartmentEntity(studentDTO.getDepartmentName()));
+			department=departmentService.addDepartment(studentDTO.getDepartmentName());
 			student.setDepartment(department);
 			Set<Subject> subjects=util.mapToSubjectSet(studentDTO.getSubjects());
 			student.setSubjectsSet(subjectService.addSubjects(subjects));
@@ -81,4 +82,30 @@ public class StudentServiceImpl implements StudentService {
 		return false;
 
 	}
+
+	@Override
+	public StudentDTO updateStudent(StudentDTO studentDTO) {
+		Optional<Student> student = studentRepo.findById(studentDTO.getId());
+		if(student.isPresent()) {
+			if(studentRepo.findByFirstNameAndEmailAndIdNot(studentDTO.getFirstName(),studentDTO.getEmail(),studentDTO.getId())==null) {
+					student.get().setFirstName(studentDTO.getFirstName());
+					student.get().setLastName(studentDTO.getLastName());
+					student.get().setEmail(studentDTO.getEmail());
+					student.get().setAge(studentDTO.getAge());
+					student.get().setGender(studentDTO.getGender());
+					student.get().setMobile(studentDTO.getMobile());
+					address = addressService.insertAddress(studentDTO.getAddressDTO());
+					student.get().setAddress(address);
+					department = departmentService.addDepartment(studentDTO.getDepartmentName());
+					student.get().setDepartment(department);
+					Set<Subject> subjects = util.mapToSubjectSet(studentDTO.getSubjects());
+					student.get().setSubjectsSet(subjectService.addSubjects(subjects));
+					studentRepo.save(student.get());
+					return studentDTO;
+				}
+			}
+		return null;
+		}
+
+
 }
