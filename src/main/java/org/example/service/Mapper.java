@@ -1,4 +1,4 @@
-package org.example.util;
+package org.example.service;
 
 import org.example.dto.AddressDTO;
 import org.example.dto.response.DepartmentDTO;
@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class Util {
+public class Mapper {
 
 	public Student mapToStudentEntity(StudentDTO studentDTO) {
 		return new Student(
@@ -27,6 +27,21 @@ public class Util {
 				studentDTO.getEmail(),
 				studentDTO.getGender()
 				);
+	}
+
+	public StudentDTO mapToStudentDTO(Student student){
+		return new StudentDTO(
+				student.getStudentId(),
+				student.getAge(),
+				student.getMobile(),
+				student.getFirstName(),
+				student.getLastName(),
+				student.getEmail(),
+				student.getGender(),
+				new AddressDTO(student.getAddress().getId(),student.getAddress().getLandmark(),student.getAddress().getCity(),student.getAddress().getState(),student.getAddress().getPincode()),
+				student.getDepartment().getDepartmentName(),
+				mapSubjectsToStringSet(student.getSubjectsSet())
+		);
 	}
 
 	public Address mapToAddressEntity(AddressDTO addressDTO) {

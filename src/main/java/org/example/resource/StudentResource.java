@@ -1,13 +1,8 @@
 package org.example.resource;
 
 
-import org.example.dto.response.DepartmentDTO;
 import org.example.dto.StudentDTO;
-import org.example.dto.response.SubjectDTO;
-import org.example.entity.Department;
-import org.example.service.DepartmentService;
 import org.example.service.StudentService;
-import org.example.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +21,6 @@ public class StudentResource {
 	@Autowired
 	private StudentService studentService;
 
-
-
 	@GetMapping
 	public List<StudentDTO> getAll(){
 		return studentService.getStudents();
@@ -35,6 +28,12 @@ public class StudentResource {
 	@PostMapping
 	public String createStudent(@RequestBody StudentDTO studentDTO){
 		return (studentService.addStudent(studentDTO))?"Inserted":"Could not inserted";
+
+	}
+
+	@GetMapping("/{id}")
+	public StudentDTO getById(@PathVariable("id") String id){
+		return studentService.getById(id);
 
 	}
 	@DeleteMapping("/{id}")

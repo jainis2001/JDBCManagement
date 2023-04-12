@@ -1,10 +1,7 @@
 package org.example.resource;
 
-import org.example.dto.StudentDTO;
 import org.example.dto.response.DepartmentDTO;
 import org.example.service.DepartmentService;
-import org.example.service.StudentService;
-import org.example.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

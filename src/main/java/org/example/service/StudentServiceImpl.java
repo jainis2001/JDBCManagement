@@ -6,7 +6,6 @@ import org.example.entity.Department;
 import org.example.entity.Student;
 import org.example.entity.Subject;
 import org.example.repo.StudentRepo;
-import org.example.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +26,7 @@ public class StudentServiceImpl implements StudentService {
 	private Student student;
 
 	@Autowired
-	private Util util;
+	private Mapper mapper;
 	@Autowired
 	private AddressService addressService;
 	@Autowired
@@ -39,12 +38,12 @@ public class StudentServiceImpl implements StudentService {
 	public boolean addStudent(StudentDTO studentDTO) {
 
 		if(studentRepo.findByFirstNameAndEmail(studentDTO.getFirstName(),studentDTO.getEmail())==null){
-			student=util.mapToStudentEntity(studentDTO);
+			student=mapper.mapToStudentEntity(studentDTO);
 			address=addressService.insertAddress(studentDTO.getAddressDTO());
 			student.setAddress(address);
 			department=departmentService.addDepartment(studentDTO.getDepartmentName());
 			student.setDepartment(department);
-			Set<Subject> subjects=util.mapToSubjectSet(studentDTO.getSubjects());
+			Set<Subject> subjects=mapper.mapToSubjectSet(studentDTO.getSubjects());
 			student.setSubjectsSet(subjectService.addSubjects(subjects));
 			studentRepo.save(student);
 			return true;
@@ -65,9 +64,9 @@ public class StudentServiceImpl implements StudentService {
 					student.getLastName(),
 					student.getEmail(),
 					student.getGender());
-			studentDTO.setAddressDTO(util.mapToAddressDTO(student.getAddress()));
+			studentDTO.setAddressDTO(mapper.mapToAddressDTO(student.getAddress()));
 			studentDTO.setDepartmentName(student.getDepartment().getDepartmentName());
-			studentDTO.setSubjects(util.mapSubjectsToStringSet(student.getSubjectsSet()));
+			studentDTO.setSubjects(mapper.mapSubjectsToStringSet(student.getSubjectsSet()));
 			studentDTOS.add(studentDTO);
 		}
 
@@ -98,7 +97,7 @@ public class StudentServiceImpl implements StudentService {
 					student.get().setAddress(address);
 					department = departmentService.addDepartment(studentDTO.getDepartmentName());
 					student.get().setDepartment(department);
-					Set<Subject> subjects = util.mapToSubjectSet(studentDTO.getSubjects());
+					Set<Subject> subjects = mapper.mapToSubjectSet(studentDTO.getSubjects());
 					student.get().setSubjectsSet(subjectService.addSubjects(subjects));
 					studentRepo.save(student.get());
 					return studentDTO;
@@ -106,6 +105,11 @@ public class StudentServiceImpl implements StudentService {
 			}
 		return null;
 		}
+
+	@Override
+	public StudentDTO getById(String id) {
+		return studentRepo.findById(id).map(student->mapper.mapToStudentDTO(student)).orElse(null);
+	}
 
 
 }
