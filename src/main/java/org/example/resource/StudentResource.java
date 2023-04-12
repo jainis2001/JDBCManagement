@@ -4,6 +4,7 @@ package org.example.resource;
 import org.example.dto.response.DepartmentDTO;
 import org.example.dto.StudentDTO;
 import org.example.dto.response.SubjectDTO;
+import org.example.entity.Department;
 import org.example.service.DepartmentService;
 import org.example.service.StudentService;
 import org.example.service.SubjectService;
@@ -24,10 +25,8 @@ import java.util.List;
 public class StudentResource {
 	@Autowired
 	private StudentService studentService;
-	@Autowired
-	private DepartmentService departmentService;
-	@Autowired
-	private SubjectService subjectService;
+
+
 
 	@GetMapping
 	public List<StudentDTO> getAll(){
@@ -49,15 +48,9 @@ public class StudentResource {
 		return (studentService.updateStudent(studentDTO)!=null)?"Updated":"Could not Updated";
 	}
 
-	@GetMapping("/department-students")
-	public List<DepartmentDTO> getStudentsByDepartment(){
-		return departmentService.getStudentsByDepartement();
-	}
 
-	@GetMapping("/subject-students")
-	public List<SubjectDTO> getStudentsBySubject(){
-		return subjectService.getStudentsBySubject();
-	}
+
+
 
 
 

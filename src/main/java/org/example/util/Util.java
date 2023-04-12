@@ -71,6 +71,27 @@ public class Util {
 				.collect(Collectors.toList());
 
 	}
+	public DepartmentDTO mapDepartmentToDepartmentDTO(Department department) {
+		return new DepartmentDTO(department.getId(),department.getDepartmentName(),
+				department.getStudentsSet()
+						.stream()
+						.map(student -> new StudentForResponse(student.getStudentId(),
+						student.getFirstName(),
+						student.getLastName(),
+						student.getEmail())).collect(Collectors.toSet()));
+
+	}
+
+	public SubjectDTO mapSubjectToSubjectDTO(Subject subject) {
+		return new SubjectDTO(subject.getId(),subject.getSubjectName(),
+				subject.getStudentsSet()
+						.stream()
+						.map(student -> new StudentForResponse(student.getStudentId(),
+								student.getFirstName(),
+								student.getLastName(),
+								student.getEmail())).collect(Collectors.toSet()));
+
+	}
 
 	public List<SubjectDTO> mapSubjectToSubjectDTOList(List<Subject> subjects) {
 		return subjects.stream()

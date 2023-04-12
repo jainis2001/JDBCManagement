@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -25,10 +26,14 @@ public class SubjectService {
 					Subject existSubject=subjectRepo.findBySubjectName(subject.getSubjectName().toLowerCase());
 					return (existSubject==null)? subjectRepo.save(subject) :existSubject;
 		}).collect(Collectors.toSet());
-
 	}
 
 	public List<SubjectDTO> getStudentsBySubject(){
 		return utill.mapSubjectToSubjectDTOList(subjectRepo.findAll());
+	}
+
+	public SubjectDTO getStudentsBySubjectId(String id){
+		return subjectRepo.findById(id).map(subject->utill.mapSubjectToSubjectDTO(subject)).orElse(null);
+
 	}
 }

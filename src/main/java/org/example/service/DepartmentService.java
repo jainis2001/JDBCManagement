@@ -7,7 +7,9 @@ import org.example.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DepartmentService {
@@ -22,10 +24,12 @@ public class DepartmentService {
 	}
 
 	public List<DepartmentDTO> getStudentsByDepartement(){
-//		departmentRepo.findAll().stream().forEach(e-> {System.out.println(e.getDepartmentName()+","+e.getId());
-//			System.out.println(e.getStudentsSet());
-//		});
 		return util.mapDepartmentToDepartmentDTOList(departmentRepo.findAll());
-
 	}
+
+	public DepartmentDTO getStudentsByDepartementId(String id){
+		Optional<Department> department = departmentRepo.findById(id);
+		return department.map(value -> util.mapDepartmentToDepartmentDTO(value)).orElse(null);
+	}
+
 }
