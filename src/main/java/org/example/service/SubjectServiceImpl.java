@@ -30,6 +30,5 @@ public class SubjectServiceImpl implements SubjectService {
 
 	public SubjectDTO getStudentsBySubjectId(String id){
 		return subjectRepo.findById(id).map(subject->mapper.mapSubjectToSubjectDTO(subject)).orElse(null);
-
 	}
 }

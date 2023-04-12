@@ -26,8 +26,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	public DepartmentDTO getStudentsByDepartementId(String id){
-		Optional<Department> department = departmentRepo.findById(id);
-		return department.map(value -> mapper.mapDepartmentToDepartmentDTO(value)).orElse(null);
+
+		return departmentRepo.findById(id).map(value -> mapper.mapDepartmentToDepartmentDTO(value)).orElse(null);
 	}
 
 }

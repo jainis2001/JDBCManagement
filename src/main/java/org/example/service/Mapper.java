@@ -38,7 +38,7 @@ public class Mapper {
 				student.getLastName(),
 				student.getEmail(),
 				student.getGender(),
-				new AddressDTO(student.getAddress().getId(),student.getAddress().getLandmark(),student.getAddress().getCity(),student.getAddress().getState(),student.getAddress().getPincode()),
+				mapToAddressDTO(student.getAddress()),
 				student.getDepartment().getDepartmentName(),
 				mapSubjectsToStringSet(student.getSubjectsSet())
 		);
@@ -67,21 +67,22 @@ public class Mapper {
 
 	public Set<Subject> mapToSubjectSet(Set<String> subjects) {
 		return subjects.stream()
-				.map(Subject::new
-				).collect(Collectors.toSet());
+				.map(Subject::new)
+				.collect(Collectors.toSet());
 	}
 	public Set<String> mapSubjectsToStringSet(Set<Subject> subjects) {
 		return subjects.stream()
-				.map(Subject::getSubjectName
-				).collect(Collectors.toSet());
+				.map(Subject::getSubjectName)
+				.collect(Collectors.toSet());
 	}
 
 	public List<DepartmentDTO> mapDepartmentToDepartmentDTOList(List<Department> departments) {
 		return departments.stream()
 				.map(department -> {
-					Set<StudentForResponse> collect = department.getStudentsSet().stream()
-							.map(student -> new StudentForResponse(student.getStudentId(), student.getFirstName(), student.getLastName(), student.getEmail())).collect(Collectors.toSet());
-					return new DepartmentDTO(department.getId(), department.getDepartmentName(),collect);
+							Set<StudentForResponse> collect = department.getStudentsSet()
+									.stream()
+									.map(student -> new StudentForResponse(student.getStudentId(), student.getFirstName(), student.getLastName(), student.getEmail())).collect(Collectors.toSet());
+							return new DepartmentDTO(department.getId(), department.getDepartmentName(),collect);
 				})
 				.collect(Collectors.toList());
 

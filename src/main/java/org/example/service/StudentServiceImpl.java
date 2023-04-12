@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -53,24 +54,8 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	public List<StudentDTO> getStudents() {
-
-		List<StudentDTO> studentDTOS=new ArrayList<>();
-		List<Student> all = studentRepo.findAll();
-		for(Student student:all){
-			StudentDTO studentDTO=new StudentDTO(student.getStudentId(),
-					student.getAge(),
-					student.getMobile(),
-					student.getFirstName(),
-					student.getLastName(),
-					student.getEmail(),
-					student.getGender());
-			studentDTO.setAddressDTO(mapper.mapToAddressDTO(student.getAddress()));
-			studentDTO.setDepartmentName(student.getDepartment().getDepartmentName());
-			studentDTO.setSubjects(mapper.mapSubjectsToStringSet(student.getSubjectsSet()));
-			studentDTOS.add(studentDTO);
-		}
-
-		return studentDTOS;
+		return studentRepo.findAll().stream()
+				.map(student->mapper.mapToStudentDTO(student)).collect(Collectors.toList());
 	}
 
 	public boolean deleteStudent(String id){
@@ -87,6 +72,7 @@ public class StudentServiceImpl implements StudentService {
 		Optional<Student> student = studentRepo.findById(studentDTO.getId());
 		if(student.isPresent()) {
 			if(studentRepo.findByFirstNameAndEmailAndIdNot(studentDTO.getFirstName(),studentDTO.getEmail(),studentDTO.getId())==null) {
+
 					student.get().setFirstName(studentDTO.getFirstName());
 					student.get().setLastName(studentDTO.getLastName());
 					student.get().setEmail(studentDTO.getEmail());
