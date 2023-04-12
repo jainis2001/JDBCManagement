@@ -56,17 +56,7 @@ public class Student {
 			inverseJoinColumns = @JoinColumn(name = "fk_subject_id",referencedColumnName = "subject_Id"))
 	private Set<Subject> subjectsSet=new HashSet<>();
 
-	public Student(String firstName, String lastName, String email) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-	}
-	public Student(String id,String firstName, String lastName, String email) {
-		this.id=id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-	}
+
 
 	public Student(String id, int age, long mobile, String firstName, String lastName, String email, String gender, Address address, Department department, Set<Subject> subjectsSet) {
 		this.id = id;

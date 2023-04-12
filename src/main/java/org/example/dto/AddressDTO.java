@@ -14,12 +14,6 @@ public class AddressDTO {
 	public AddressDTO() {
 	}
 
-	public AddressDTO(String landmark, String city, String state, int pinCode) {
-		this.landmark = landmark;
-		this.city = city;
-		this.state = state;
-		this.pinCode = pinCode;
-	}
 
 	public AddressDTO(String id, String landmark, String city, String state, int pinCode) {
 		this.id = id;

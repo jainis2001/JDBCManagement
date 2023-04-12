@@ -9,5 +9,4 @@ import java.util.List;
 @Repository
 public interface DepartmentRepo extends JpaRepository<Department,String> {
 	Department findByDepartmentName(String departmentName);
-	List<Department> findAllByDepartmentName(String departmentName);
 }

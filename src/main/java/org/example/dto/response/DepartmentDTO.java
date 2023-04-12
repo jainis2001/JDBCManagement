@@ -24,9 +24,6 @@ public class DepartmentDTO {
 		this.departmentStudentsSet = departmentStudentsSet;
 	}
 
-	public DepartmentDTO(Department department) {
-	}
-
 	public String getId() {
 		return id;
 	}

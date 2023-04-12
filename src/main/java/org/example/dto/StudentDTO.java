@@ -23,31 +23,6 @@ public class StudentDTO {
 	public StudentDTO() {
 	}
 
-	public StudentDTO(String id, String firstName, String lastName, String email, int age) {
-		this.id=id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.age = age;
-	}
-	public StudentDTO(String firstName, String lastName, String email, int age) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.age = age;
-	}
-
-	public StudentDTO(String id, int age, long mobile, String firstName, String lastName, String email, String gender) {
-		this.id = id;
-		this.age = age;
-		this.mobile = mobile;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.gender = gender;
-
-	}
-
 	public StudentDTO(String id, int age, long mobile, String firstName, String lastName, String email, String gender, AddressDTO addressDTO, String departmentName, Set<String> subjects) {
 		this.id = id;
 		this.age = age;
