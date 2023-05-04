@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+<!--    <Appenders>-->
+<!--        <Console name="Console" target="SYSTEM_OUT">-->
+<!--            <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss} [%t] %-5level %c{1.} %msg %n"></PatternLayout>-->
+<!--        </Console>-->
+<!--        <File name="file" fileName="jdbc.log">-->
+<!--            <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss} [%t] %-5level %c{1.} %msg %n"></PatternLayout>-->
+<!--        </File>-->
+<!--    </Appenders>-->
+
+<!--    <Loggers>-->
+<!--        <Root level="info">-->
+<!--            <AppenderRef ref="Console"></AppenderRef>-->
+<!--            <AppenderRef ref="file"></AppenderRef>-->
+<!--        </Root>-->
+<!--    </Loggers>-->
+</Configuration>

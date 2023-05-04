@@ -1,12 +1,14 @@
 package org.example.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import org.example.entity.Subject;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
 @Component
+@JsonFilter(value = "student_filter")
 public class StudentDTO {
 
 	private String id;
@@ -115,6 +117,7 @@ public class StudentDTO {
 	public void setSubjects(Set<String> subjects) {
 		this.subjects = subjects;
 	}
+
 
 	@Override
 	public String toString() {

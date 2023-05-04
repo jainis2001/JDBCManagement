@@ -1,5 +1,8 @@
 package org.example.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.example.Exception.NotFoundResourceException;
 import org.example.dto.response.SubjectDTO;
 import org.example.entity.Subject;
 import org.example.repo.SubjectRepo;
@@ -12,11 +15,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class SubjectServiceImpl implements SubjectService {
+	private final Logger LOGGER=LogManager.getLogger(SubjectService.class);
 	@Autowired
 	private SubjectRepo subjectRepo;
 	@Autowired
 	private Mapper mapper;
 	public Set<Subject> addSubjects(Set<Subject> subjects){
+		LOGGER.info("Subjects added successfully");
 		return subjects.stream()
 				.map(subject->{
 					Subject existSubject=subjectRepo.findBySubjectName(subject.getSubjectName().toLowerCase());
@@ -29,6 +34,6 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	public SubjectDTO getStudentsBySubjectId(String id){
-		return subjectRepo.findById(id).map(subject->mapper.mapSubjectToSubjectDTO(subject)).orElse(null);
+		return subjectRepo.findById(id).map(subject->mapper.mapSubjectToSubjectDTO(subject)).orElseThrow(()->new  NotFoundResourceException("Wrong subject-id provided"));
 	}
 }
